@@ -807,12 +807,12 @@ public class XcodeTarget: Hashable, Equatable {
 
         settings.headerSearchPaths <>=
                 OrderedArray(["$(SRCROOT)/external/"])
-
+        settings.copts <>= ["-Xcc -fmodule-map-file=$(SRCROOT)/Kaly2Modulemap.modulemap"]
         // Add copts for module maps
-        settings.copts <>= self.ruleEntry.objCModuleMaps.map {
-            "-fmodule-map-file=" + subBazelMakeVariables(getRelativePath(for: $0,
-                useTulsiPath: true))
-        }
+        // settings.copts <>= self.ruleEntry.objCModuleMaps.map {
+        //     "-fmodule-map-file=" + subBazelMakeVariables(getRelativePath(for: $0,
+        //         useTulsiPath: true))
+        // }
 
         // Patch on inclusion of swift modules
         let transTargets = self.transitiveTargets(map: targetMap)
@@ -830,10 +830,11 @@ public class XcodeTarget: Hashable, Equatable {
             return "-I " + xchammerIncludeDir
         }
         settings.swiftCopts <>= swiftModuleIncs
-        settings.swiftCopts <>= self.ruleEntry.objCModuleMaps.map {
-            "-Xcc -fmodule-map-file=" + subBazelMakeVariables(getRelativePath(for: $0,
-                useTulsiPath: true))
-        }
+        settings.swiftCopts <>= ["-Xcc -fmodule-map-file=$(SRCROOT)/Kaly2Modulemap.modulemap"]
+        // settings.swiftCopts <>= self.ruleEntry.objCModuleMaps.map {
+        //     "-Xcc -fmodule-map-file=" + subBazelMakeVariables(getRelativePath(for: $0,
+        //         useTulsiPath: true))
+        // }
 
         if let headerMap =  self.extractHeaderMap() {
             settings.swiftCopts <>= ["-Xcc -iquote -Xcc " + headerMap]
