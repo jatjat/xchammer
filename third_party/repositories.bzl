@@ -255,11 +255,14 @@ def xchammer_dependencies():
         ]),
     )
 
-    PINTEREST_TULSI_COMMIT = "c9b533f4612444e0a5e0fa639d4cb508399d9e08"
+    # Work around Bazel being invoked incorrectly:
+    PINTEREST_TULSI_COMMIT = "38c63100259bfa072e26f5bc8f7340d701018b22"
+    # PINTEREST_TULSI_COMMIT = "c9b533f4612444e0a5e0fa639d4cb508399d9e08"
 
     namespaced_git_repository(
         name = "Tulsi",
-        remote = "https://github.com/pinterest/tulsi.git",
+        remote = "https://github.com/jatjat/tulsi.git",
+        # remote = "https://github.com/pinterest/tulsi.git",
         commit = PINTEREST_TULSI_COMMIT,
         patch_cmds = [
             """
