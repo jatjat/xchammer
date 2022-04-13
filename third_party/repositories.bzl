@@ -279,6 +279,7 @@ def xchammer_dependencies():
         commit = PINTEREST_TULSI_COMMIT,
         strip_prefix = "src/TulsiGenerator/Bazel",
         build_file_content = "exports_files(['tulsi'])",
+        shallow_since = "1649564166 -0500",
     )
 
     namespaced_new_git_repository(
