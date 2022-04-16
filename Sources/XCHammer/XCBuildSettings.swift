@@ -243,7 +243,8 @@ struct XCBuildSettings: Encodable {
         // requires this on Catalina, Xcode 11, and XCBuild
         if let codeSigningAllowed = self.codeSigningAllowed {
             let setting = Setting(base: codeSigningAllowed,
-                SDKiPhoneSimulator: First("YES"),
+                // SDKiPhoneSimulator: First("YES"),
+                SDKiPhoneSimulator: First("NO"), // Kaly2 HOTFIX: force not signing on simulator builds
                 SDKiPhone: codeSigningAllowed)
             try variableContainer.encode(setting, forKey: .codeSigningAllowed)
         }
